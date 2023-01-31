@@ -2,7 +2,9 @@ import React, { FunctionComponent } from 'react';
 import { hydrateRoot } from 'react-dom/client';
 
 const Home:FunctionComponent = () => {
-    return <main></main>
+    return <main>
+        
+    </main>
 }
 
 /**
