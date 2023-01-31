@@ -1,0 +1,27 @@
+
+{
+    "compilerOptions": {
+      "target": "ES5",
+      "module": "commonjs",
+      "moduleResolution": "node",
+      "jsx": "react",
+      "outDir": "src",
+      "sourceMap": true,
+      "allowJs": true,
+      "esModuleInterop": true,
+      "forceConsistentCasingInFileNames": true,
+      "strict": true,
+      "resolveJsonModule": true,
+      "noEmit": false
+    },
+    "include": [
+      "./**/*.ts",
+      "./**/*.tsx",
+      "./**/*.d.ts",
+    ],
+    "exclude": [
+      "node_modules",
+      "webpack.config.js",
+      "src"
+    ]
+  }
