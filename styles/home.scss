@@ -1,0 +1,217 @@
+main {
+    flex-direction: column;
+}
+
+.LandingBanner {
+    height: 50vw;
+    min-height: 45em;
+    max-height: 60em;
+    width: 100%;
+    overflow: hidden;
+
+    .TrianglesWrapper {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+
+        .Triangles {
+            position: absolute;
+            height: 100%;
+            width: fit-content;
+            min-width: 100%;
+            bottom: 0;
+            right: 0;
+    
+            div {
+                background-color: var(--red);
+                flex-basis: 1px;
+                flex-grow: 1;
+            }
+    
+            .TriangleSVG {
+                height: 100%;
+                width: auto;
+                max-width: 10000000px;
+            }
+        }
+
+        .BarnSVG {
+            position: absolute;
+            height: 30vw;
+            bottom: 3vw;
+            left: 4vw;
+        }
+    }
+
+    .Wires {
+        position: absolute;
+        right: -27.5em;
+        top: -6em;
+        height: 100%;
+        width: fit-content;
+        min-width: 100%;
+        justify-content: flex-end;
+
+        div {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            top: 0;
+            right: 0;
+            background: linear-gradient(90deg, rgba(255,255,255,0.9) 30%, rgba(0,0,0,0) 100%);
+        }
+
+        svg {
+            height: 100%;
+        }
+    }
+
+    .CopyWrapper {
+        position: absolute;
+        flex-direction: column;
+        align-items: flex-end;
+        right: 3.5%;
+        top: 5vw;
+        gap: 1.5em;
+        width: 70vh;
+        max-width: 93%;
+
+        * {
+            line-height: 100%;
+        }
+
+        h2 {
+            margin: 0;
+            color: var(--red);
+            font-family: var(--heading);
+            font-size: clamp(3.5em, 10vw, 5em);
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        h3 {
+            margin: 0;
+            color: var(--red);
+            font-family: var(--heading);
+            font-weight: 500;
+            font-size: 2.5em;
+            text-align: right;
+        }
+
+        p {
+            margin: 0;
+            font-family: var(--body);
+            font-size: 1.5em;
+            font-weight: 500;
+            text-align: right;
+            justify-content: flex-end;
+            width: 80%;
+        }
+
+        .Links {
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 2em;
+            justify-content: flex-end;
+            width: 80%;
+
+            a {
+                font-size: 2em;
+                font-family: var(--heading);
+                font-weight: 500;
+                color: var(--black);
+                transition: color 0.1s linear, transform 0.1s linear;
+                white-space: nowrap;
+
+                &:hover {
+                    color: var(--lightRed);
+                    transform: scale(1.1);
+                }
+            }
+        }
+    }
+}
+
+.WhatWeDoDivider {
+    background-color: var(--lightRed);
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.25em;
+    padding: 2em 0;
+
+    h2 {
+        color: var(--white);
+        font-family: var(--heading);
+        font-size: 4em;
+        margin: 0;
+        line-height: 100%;
+        text-align: center;
+    }
+
+    p {
+        color: var(--white);
+        font-family: var(--body);
+        font-size: 1.5em;
+        font-style: italic;
+        margin: 0;
+        line-height: 100%;
+        text-align: center;
+    }
+}
+
+.WhatWeDoWrapper {
+    background-color: var(--red);
+
+    .InnerWrapper {
+        flex-direction: column;
+        width: calc(100% - 50px);
+        max-width: 1600px;
+        padding: 5em 25px;
+        margin: 0 auto;
+        gap: calc(7em - 3vw);
+
+        .Section {
+            flex-direction: column;
+            width: 60em;
+            max-width: 100%;
+            gap: 0.5em;
+    
+            h2 {
+                align-items: center;
+                font-size: 2.5em;
+                font-weight: 500;
+                color: white;
+                margin: 0;
+                gap: 0.5em;
+                line-height: 100%;
+
+                svg {
+                    flex-basis: 2em;
+                    width: 2em;
+                    white-space: nowrap;
+                }
+            }
+            
+            p {
+                font-size: 1.5em;
+                font-weight: 300;
+                color: white;
+                margin: 0;
+                flex-basis: 100%;
+                width: 100%;
+            }
+        }
+
+        .Section:nth-child(even) {
+            align-self: flex-end;
+            justify-content: flex-end;
+            text-align: right;
+
+            h2, p {
+                justify-content: flex-end;
+            }
+        }
+    }
+}

@@ -7,7 +7,7 @@ const index = express.Router();
 
 index.route('/')
     .get(async (req, res) => {
-        res.send(serveHTML(<Home></Home>, 'Home'))
+        res.send(serveHTML(<Home></Home>, 'home'));
     })
 
 export default index;

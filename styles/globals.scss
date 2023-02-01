@@ -1,12 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 :root {
     --white: white;
     --black: #303133;
     --red: #d13939;
     --lightRed: #e34f50;
+    --heading: 'Montserrat';
+    --body: 'Karla'
 }
 
 body {
     margin: 0;
+    overflow-x: hidden;
 
     * {
         display: flex;
@@ -14,3 +19,294 @@ body {
     }
 }
 
+#root {
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100vw;
+}
+
+main {
+    width: 100%;
+    height: fit-content;
+}
+
+* {
+    font-family: var(--body);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--heading);
+}
+
+#Header {
+    height: fit-content;
+    width: 100%;
+    background-color: var(--black);
+    
+    .Wrapper {
+        width: calc(100% - 50px);
+        max-width: 1600px;
+        margin: auto;
+        gap: 1em;
+        justify-content: space-between;
+        padding: 0.75em 25px;
+
+        .Logo {
+            padding: 0.4em 1em;
+            height: 3em;
+            max-width: 50vw;
+            width: auto;
+            margin: auto 0;
+            border-radius: 0.5em;
+            transition: background-color 0.1s linear, color 0.1s linear, transform 0.1s linear;
+
+            &:hover {
+                background-color: var(--white);
+                color: var(--black);
+                transform: scale(1.15);
+
+                * {
+                    fill: var(--black);
+                }
+            }
+
+            * {
+                transition: fill 0.1s linear;
+            }
+        }
+
+        .DesktopNav {
+            flex-wrap: wrap;
+            justify-content: flex-end;
+
+            a {
+                padding: 0.25em 1em;
+                gap: 0.25em;
+                justify-content: center;
+                align-items: center;
+                color: white;
+                text-transform: uppercase;
+                font-family: var(--heading);
+                font-weight: 500;
+                font-size: 1.5em;
+                white-space: nowrap;
+                margin: auto 0;
+                border-radius: 0.5em;
+                transition: background-color 0.1s linear, color 0.1s linear, transform 0.1s linear;
+    
+                &:hover {
+                    background-color: var(--white);
+                    color: var(--black);
+                    transform: scale(1.15);
+                }
+    
+                .fa-user {
+                    font-size: 1.25em;
+                }
+            }
+        }
+
+        .MobileNav {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--black);
+            flex-direction: column;
+            align-items: center;
+            transition: 0.25s transform ease-in-out;
+            font-size: 2em;
+            gap: 1em;
+            overflow-y: scroll;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+
+            p, a {
+                color: var(--white);
+                font-family: var(--heading);
+                margin: 0;
+                padding: 0.25em 0.5em;
+                border-radius: 0.25em;
+                align-items: center;
+                gap: 0.25em;
+                transition: color 0.1s linear, background-color 0.1s linear, transform 0.1s linear;
+
+                &:hover {
+                    color: var(--black);
+                    background-color: var(--white);
+                    cursor: pointer;
+                    transform: scale(1.15);
+                }
+            }
+
+            p {
+                box-shadow: 0 0 0 0.1em var(--white);
+            }
+        }
+
+        .HamburgerButton {
+            display: none;
+            margin: auto 0;
+
+            svg {
+                color: var(--white);
+                height: 2.5em;
+                padding: 0.5em 1em;
+                border-radius: 0.5em;
+                transition: color 0.1s linear, background-color 0.1s linear, transform 0.1s linear;
+
+                &:hover {
+                    color: var(--black);
+                    background: var(--white);
+                    cursor: pointer;
+                    transform: scale(1.15);
+                }
+            }
+        }
+
+        @media (max-width: 800px) {
+            .HamburgerButton {
+                display: flex;
+            }
+            .DesktopNav {
+                display: none;
+            }
+        }
+    }
+}
+
+#Footer {
+    width: 100%;
+    background-color: var(--black);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .Top {
+        width: calc(100% - 50px);
+        max-width: 1600px;
+        padding: 3em 25px;
+        align-items: center;
+        justify-content: center;
+        gap: 2em;
+        flex-wrap: wrap;
+
+        .Info {
+            flex-wrap: wrap;
+            height: fit-content;
+            gap: 0.25em 1em;
+            flex-basis: 1px;
+            flex-grow: 1;
+
+            .Logo {
+                flex-basis: 100%;
+                height: fit-content;
+
+                svg {
+                    height: 6em;
+                    max-width: calc(100vw - 50px);
+                }
+            }
+
+            a {
+                font-size: 1.4em;
+                height: fit-content;
+                font-family: var(--body);
+                font-weight: 300;
+                text-decoration-thickness: 0.05em;
+            }
+        }
+
+        nav {
+            justify-content: flex-end;
+            flex-direction: column;
+            gap: 1em;
+
+            a {
+                font-size: 1.5em;
+                font-family: var(--heading);
+                text-decoration-thickness: 0.05em;
+            }
+        }
+
+        a {
+            color: var(--white);
+            transition: color 0.1s linear, transform 0.1s linear;
+
+            &:hover {
+                color: var(--lightRed);
+                transform: scale(1.1);
+                z-index: 1;
+            }
+        }
+    }
+
+    .Divider {
+        height: 0.3em;
+        width: 100%;
+        background-color: rgba(255,255,255, 0.2);
+    }
+
+    .Bottom {
+        flex-wrap: wrap;
+        width: calc(100% - 50px);
+        max-width: 1600px;
+        padding: 3em 25px;
+        gap: 2em 0;
+        align-items: center;
+
+        .Column {
+            flex-direction: column;
+            gap: 2em;
+            align-items: flex-start;
+            justify-content: center;
+            margin: 0 auto;
+
+            svg {
+                height: 3em;
+                max-width: calc(100vw - 4em);
+                padding: 0.5em 1em;
+                border-radius: 0.5em;
+                transition: background-color 0.1s linear, transform 0.1s linear;
+
+                * {
+                    transition: fill 0.1s linear;
+                }
+
+                .NoChange {
+                    fill: white !important;
+                }
+
+                &:hover {
+                    background-color: white;
+                    transform: scale(1.05);
+
+                    * {
+                        fill: var(--black);
+                    }
+                }
+            }
+        }
+
+        .Column:nth-child(2) {
+            align-items: center;
+
+            svg {
+                height: 8em;
+            }
+        }
+
+        p {
+            margin: 0;
+            flex-basis: 100%;
+            font-size: 1.25em;
+            font-family: var(--heading);
+            font-weight: 300;
+            color: var(--white);
+            justify-content: center;
+            text-align: center;
+        }
+    }
+}
