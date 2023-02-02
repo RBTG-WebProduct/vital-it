@@ -1,9 +1,45 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import { hydrateRoot } from 'react-dom/client';
 import Header from './parts/Header';
 import Footer from './parts/Footer';
 
 const Home:FunctionComponent = () => {
+    /**
+     * Storing state for all the sections in the "What We Do" wrapper.
+     * This array represents wether the section is on-screen or not.
+     */
+    const [isActivated, setIsActivated] = useState<boolean[]>([]);
+
+    /**
+     * Adding event listeners to fade in all the sections in the "What We Do" wrapper.
+     */
+    if(typeof window != 'undefined') {
+        window.addEventListener('load', () => {
+            /**
+             * Setting a defualt value for each section.
+             */
+            setIsActivated(Array.from(document.getElementsByClassName('Section')!).map(() => {
+                return false;
+            }));
+            testScrollEvents();
+        });
+        window.addEventListener('scroll', testScrollEvents);
+    }
+
+    /**
+     * Testing whether each section is on-screen.
+     * If it is, update the state variable.
+     */
+    function testScrollEvents() {
+        const sections = Array.from(document.getElementsByClassName('Section')!) as HTMLDivElement[];
+        let newValues = JSON.parse(JSON.stringify(isActivated));
+        sections.forEach((section, i) => {
+            if(section.getBoundingClientRect().bottom < window.innerHeight && section.getBoundingClientRect().top > 0) {
+                newValues[i] = true;
+            }
+        });
+        setIsActivated(newValues);
+    }
 
     return <>
         <Header></Header>
@@ -112,7 +148,7 @@ const Home:FunctionComponent = () => {
             </div>
             <div className='WhatWeDoWrapper'>
                 <div className='InnerWrapper'>
-                    <div className='Section'>
+                    <div className={`Section ${isActivated[0] ? 'Activated' : ''}`}>
                         <h2>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90.44 65">
                                 <path fill="#e36a6b" d="m88.78,1.66C87.72.6,86.28,0,84.78,0H5.65c-1.5,0-2.94.6-4,1.66C.6,2.72,0,4.15,0,5.65v48.04c0,1.5.6,2.93,1.66,4,1.06,1.06,2.5,1.66,4,1.66h28.97v2.83h-7.07c-.78,0-1.41.63-1.41,1.41s.63,1.41,1.41,1.41h35.33c.78,0,1.41-.63,1.41-1.41s-.63-1.41-1.41-1.41h-7.07v-2.83h28.97c1.5,0,2.93-.6,4-1.66,1.06-1.06,1.66-2.5,1.66-4V5.65c0-1.5-.6-2.94-1.66-4Z"/>
@@ -130,7 +166,7 @@ const Home:FunctionComponent = () => {
                         </h2>
                         <p>A real-time map of your entire network, continuous monitoring of a device during troubleshooting, with remote access to workstations and servers for quicker repair.</p>
                     </div>
-                    <div className='Section'>
+                    <div className={`Section ${isActivated[1] ? 'Activated' : ''}`}>
                         <h2>
                             Help Desk Support
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70.37 65">
@@ -140,7 +176,7 @@ const Home:FunctionComponent = () => {
                         </h2>
                         <p>We can remotely diagnose and correct a large range of problems.</p>
                     </div>
-                    <div className='Section'>
+                    <div className={`Section ${isActivated[2] ? 'Activated' : ''}`}>
                         <h2>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 66.31 65">
                                 <path fill="#e36a6b" d="m66.23,20.7c0-3.99-3.27-7.26-7.26-7.26h-9.15V2.91C49.82,1.31,48.51,0,46.92,0h-27.53C17.79,0,16.49,1.31,16.49,2.91v10.46H7.26c-3.99,0-7.26,3.27-7.26,7.26v21.35c0,3.99,3.27,7.26,7.26,7.26h9.22v12.85c0,1.6,1.31,2.91,2.91,2.91h27.53c1.6,0,2.91-1.31,2.91-2.91v-13.07c.22.15.44.22.73.22h8.5c3.99,0,7.26-3.27,7.26-7.26v-21.28h-.07Z"/>
@@ -153,7 +189,7 @@ const Home:FunctionComponent = () => {
                         </h2>
                         <p>Vital IT Management Studio comes equipped with an internal ticketing system, allowing you to track issues and progress.</p>
                     </div>
-                    <div className='Section'>
+                    <div className={`Section ${isActivated[3] ? 'Activated' : ''}`}>
                         <h2>
                             Backup & Disaster Recovery
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 71.62 65">
@@ -163,7 +199,7 @@ const Home:FunctionComponent = () => {
                         </h2>
                         <p>We offer offsite backups of your critical data, ensuring rapid recovery.</p>
                     </div>
-                    <div className='Section'>
+                    <div className={`Section ${isActivated[4] ? 'Activated' : ''}`}>
                         <h2>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 102.95 65">
                                 <path fill="#e36a6b" d="m101.5,30.36c-.91-.91-2.19-1.45-3.49-1.45h-4.1V9.62c0-5.3-4.31-9.62-9.62-9.62H27.69c-5.3,0-9.62,4.32-9.62,9.62v4.84H7.77c-2.08,0-4.03.8-5.49,2.27-1.47,1.47-2.28,3.42-2.28,5.49v35.01c0,2.07.81,4.02,2.28,5.49,1.47,1.47,3.41,2.28,5.49,2.28h20.54c2.08,0,4.03-.81,5.49-2.28,1.47-1.47,2.28-3.42,2.28-5.49v-6.69h8.16l-2.33,10.91h-3.99c-.97,0-1.78.8-1.78,1.78s.8,1.78,1.78,1.78h36.14c.97,0,1.77-.8,1.77-1.78s-.79-1.78-1.77-1.78h-3.99l-2.33-10.91h13.58v9.52c0,1.32.52,2.56,1.45,3.49.92.92,2.19,1.46,3.5,1.46h11.74c1.3,0,2.57-.53,3.49-1.46.93-.92,1.45-2.17,1.45-3.49v-26.19c0-1.31-.52-2.58-1.45-3.5Z"/>
@@ -175,7 +211,7 @@ const Home:FunctionComponent = () => {
                         </h2>
                         <p>Phones, printers and peripheral devices for continuity between all users.</p>
                     </div>
-                    <div className='Section'>
+                    <div className={`Section ${isActivated[5] ? 'Activated' : ''}`}>
                         <h2>
                             Email Management
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 79.39 65">
@@ -185,7 +221,7 @@ const Home:FunctionComponent = () => {
                         </h2>
                         <p>Super-secure and encrypted, spam and virus protection.</p>
                     </div>
-                    <div className='Section'>
+                    <div className={`Section ${isActivated[6] ? 'Activated' : ''}`}>
                         <h2>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 82.24 65">
                                 <path fill="#e34f50" d="m82.24,36.65c-.01-.7-.57-1.27-1.28-1.3-.77-.03-3.52-.26-6.67-2.06,0,0,0,0-.01,0-3.25-1.8-5.18-4.19-6.04-5.46-.24-.35-.64-.57-1.07-.58-.4-.03-.84.19-1.09.53-.73.97-1.64,1.96-2.68,2.89C62.97,14.71,50.55,1.67,34.79.15c-.15-.02-.3-.03-.44-.04-.11,0-.22-.02-.33-.03-.21-.02-.42-.03-.63-.04-.04,0-.08,0-.12,0-.18,0-.36-.02-.54-.02-.08,0-.17-.01-.25-.02-.1,0-.19,0-.29,0-.16,0-.33,0-.49,0-.52,0-1.04.02-1.56.04-.04,0-.08,0-.12,0-.2.01-.41.02-.61.04C17.2.96,6.89,8.72,2.4,19.48c-.02.05-.04.1-.07.16-.06.14-.12.28-.17.42-.08.2-.16.41-.23.61,0,0,0,0,0,0-1.25,3.38-1.93,7.03-1.93,10.83,0,4.4.92,8.6,2.57,12.41.02.07.04.13.07.19,4.26,9.74,13.12,16.55,23.42,18.4.04,0,.08.02.13.02.2.03.4.07.6.1.05,0,.11.02.16.02.23.04.47.07.71.1.05,0,.09.01.14.02.19.02.38.05.57.07.08,0,.16.02.23.02.18.02.36.03.55.05.06,0,.12,0,.17.01.23.02.47.03.7.05.07,0,.13,0,.2,0,.18,0,.37.02.55.02.07,0,.14,0,.21,0,.24,0,.49,0,.73,0h0c2.18,0,4.32-.22,6.4-.64,6.72-1.36,12.8-4.84,17.4-10.04.52,1.06,1.11,2.13,1.79,3.2,2.3,3.59,5.32,6.7,8.98,9.24.26.18.57.26.88.23.04,0,.08,0,.12,0,.27,0,.53-.08.76-.24,3.84-2.67,6.84-5.76,9.16-9.45,4.35-6.9,5.15-13.96,5.06-18.66Z"/>
@@ -201,7 +237,9 @@ const Home:FunctionComponent = () => {
             </div>
             <div className='ContactWrapper'>
                 <div className='InnerWrapper'>
-
+                    <h3>Have more questions?</h3>
+                    <p>Get in contact with an expert.</p>
+                    <a href='/contact'>Contact Us</a>
                 </div>
             </div>
         </main>
@@ -211,7 +249,7 @@ const Home:FunctionComponent = () => {
 
 /**
  * This is to hydrate our file so our server can render the HTML content first and send it to the client.
- * Making sure the window is present, becuase if we attempt to run this file in a Node environment without a window (which we will), it will crash.
+ * Making sure the window is present, becuase if we attempt to run this file in a Node environment, it will crash.
  */
 if(typeof window !== 'undefined') {
     hydrateRoot(document.getElementById('root') as HTMLDivElement, <Home></Home>)

@@ -1,7 +1,17 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 
 const Header:FunctionComponent = () => {
+    /**
+     * Storing state for when the mobile nav menu is opened.
+     */
     const [openMobileNav, setOpenMobileNav] = useState(false);
+
+    /**
+     * Preventing the user from scrolling the page when the mobile nav menu is opened.
+     */
+    useEffect(() => {
+        document.body.style.overflowY = openMobileNav ? 'hidden' : 'scroll';
+    }, [openMobileNav]);
 
     return <header id="Header">
         <div className='Wrapper'>

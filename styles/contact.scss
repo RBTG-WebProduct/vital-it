@@ -1,0 +1,150 @@
+.BigTriangle {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 25vw;
+}
+
+.FormWrapper {
+    width: calc(100% - 4em);
+    max-width: 1200px;
+    margin: auto;
+    padding: 5em 2em;
+    flex-direction: column;
+
+    .Triangles {
+        position: absolute;
+        width: 3em;
+        right: 0;
+        top: 5em;
+        transform: translateX(8em);
+    }
+
+    .Title {
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0.75em;
+
+        h1 {
+            color: var(--red);
+            margin: 0;
+            font-size: clamp(3.5em, 7vw, 5em);
+            line-height: 100%;
+            white-space: nowrap;
+        }
+
+        a {
+            color: var(--black);
+            transition: color 0.1s linear, transform 0.1s linear;
+
+            h2 {
+                font-size: 2em;
+                font-weight: 500;
+                font-family: var(--body);
+                line-height: 100%;
+                white-space: nowrap;
+                margin: 0;
+            }
+
+            &:hover {
+                color: var(--lightRed);
+                transform: scale(1.1);
+            }
+        }
+    }
+
+    .SubTitle {
+        margin: 0.75em 0 1.5em 0;
+        font-size: 1.5em;
+        font-style: italic;
+        font-weight: 500;
+        line-height: 100%;
+    }
+
+    .InputWrapper {
+        gap: 0.25em 0.5em;
+        flex-wrap: wrap;
+        margin: 1em 0;
+        align-items: center;
+
+        p {
+            font-size: 2em;
+            font-weight: 500;
+            margin: 0;
+        }
+
+        input {
+            color: rgba(0,0,0, 0.5);
+            font-size: 1.75em;
+            flex-basis: 500px;
+            flex-grow: 1;
+            padding: 0.1em 0.2em;
+            outline: none;
+            border: none;
+            border-bottom: 0.1em solid rgba(0,0,0, 0.2);
+            transition: border-color 0.1s linear, color 0.1s linear;
+
+            &:hover, &:focus {
+                color: var(--black);
+                border-bottom: 0.1em solid var(--red);
+            }
+        }
+
+        textarea {
+            color: rgba(0,0,0, 0.5);
+            background-color: #f9fbfc;
+            font-size: 1.75em;
+            outline: none;
+            border: 0.1em solid rgba(0,0,0, 0.2);
+            border-radius: 0.25em;
+            flex-basis: 100%;
+            padding: 0.25em;
+            min-height: 10em;
+            transition: border-color 0.1s linear, color 0.1s linear;
+
+            &:hover, &:focus {
+                color: var(--black);
+                border: 0.1em solid var(--red);
+            }
+        }
+    }
+
+    .ErrorMessage {
+        color: var(--red);
+        font-weight: 400;
+        font-size: 2em;
+        text-align: center;
+        align-self: center;
+
+        svg {
+            font-size: 1.5em;
+            animation: spin 1s 0s infinite ease-in-out;
+        }
+
+        @keyframes spin {
+            from {transform: rotate(0deg);}
+            to {transform: rotate(360deg);}
+        }
+    }
+
+    .SubmitButton {
+        color: var(--white);
+        font-size: 2.5em;
+        font-family: var(--heading);
+        font-weight: 600;
+        width: fit-content;
+        margin: 1em auto;
+        padding: 0.3em 3em;
+        border-radius: 10em;
+        background-color: var(--red);
+        border: 0.2em solid var(--lighterRed);
+        transition: background-color 0.1s linear, transform 0.1s linear;
+
+        &:hover {
+            background-color: var(--lighterRed);
+            transform: scale(1.1);
+            cursor: pointer;
+        }
+    }
+}

@@ -1,6 +1,19 @@
-main {
-    flex-direction: column;
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
 }
+
+@keyframes slideRight {
+    from {transform: translateX(-100%);}
+    to {transform: translateX(0%);}
+}
+
+@keyframes slideLeft {
+    from {transform: translateX(125%);}
+    to {transform: translateX(0%);}
+}
+
+
 
 .LandingBanner {
     height: 50vw;
@@ -13,6 +26,8 @@ main {
         position: absolute;
         width: 100%;
         height: 100%;
+        transform: translateX(-100%);
+        animation: slideRight 0.5s 0.25s forwards ease-in-out;
 
         .Triangles {
             position: absolute;
@@ -51,6 +66,8 @@ main {
         width: fit-content;
         min-width: 100%;
         justify-content: flex-end;
+        opacity: 0;
+        animation: fadeIn 0.25s 0.6s forwards linear;
 
         div {
             position: absolute;
@@ -75,6 +92,8 @@ main {
         gap: 1.5em;
         width: 70vh;
         max-width: 93%;
+        transform: translateX(125%);
+        animation: slideLeft 0.5s 1s forwards ease-in-out;
 
         * {
             line-height: 100%;
@@ -122,11 +141,19 @@ main {
                 color: var(--black);
                 transition: color 0.1s linear, transform 0.1s linear;
                 white-space: nowrap;
+                opacity: 0;
 
                 &:hover {
                     color: var(--lightRed);
                     transform: scale(1.1);
                 }
+            }
+
+            a:nth-child(1) {
+                animation: fadeIn 0.25s 1.5s forwards linear;
+            }
+            a:nth-child(2) {
+                animation: fadeIn 0.25s 1.75s forwards linear;
             }
         }
     }
@@ -163,12 +190,14 @@ main {
 
 .WhatWeDoWrapper {
     background-color: var(--red);
+    overflow: hidden;
+    width: calc(100% - 50px);
+    padding: 5em 25px;
 
     .InnerWrapper {
         flex-direction: column;
-        width: calc(100% - 50px);
+        width: 100%;
         max-width: 1600px;
-        padding: 5em 25px;
         margin: 0 auto;
         gap: calc(7em - 3vw);
 
@@ -177,6 +206,9 @@ main {
             width: 60em;
             max-width: 100%;
             gap: 0.5em;
+            opacity: 0;
+            transform: translateX(-150%);
+            transition: opacity 0.6s linear, transform 0.5s ease-in-out;
     
             h2 {
                 align-items: center;
@@ -208,9 +240,86 @@ main {
             align-self: flex-end;
             justify-content: flex-end;
             text-align: right;
+            transform: translateX(150%);
 
             h2, p {
                 justify-content: flex-end;
+            }
+        }
+
+        .Activated {
+            opacity: 1 !important;
+            transform: translateX(0%) !important;
+        }
+
+        a {
+            font-size: 2.25em;
+            font-weight: 700;
+            font-family: var(--heading);
+            color: var(--red);
+            padding: 0.5em 2em;
+            background: var(--white);
+            border: 0.2em solid var(--lighterRed);
+            width: fit-content;
+            margin: 2em auto;
+            border-radius: 5em;
+            text-align: center;
+            transition: color 0.1s linear, background-color 0.1s linear, transform 0.1s linear;
+
+            &:hover {
+                color: var(--white);
+                background-color: var(--lighterRed);
+                transform: scale(1.1);
+            }
+        }
+    }
+}
+
+.ContactWrapper {
+    background-color: var(--white);
+    width: calc(100% - 50px);
+    padding: 10em 25px;
+
+    .InnerWrapper {
+        width: 100%;
+        max-width: 1600px;
+        margin: auto;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        h3 {
+            font-size: 4em;
+            font-weight: 500;
+            color: var(--red);
+            margin: 0;
+            text-align: center;
+        }
+
+        p { 
+            font-size: 2.5em;
+            font-weight: 500;
+            color: var(--black);
+            margin: 0;
+            text-align: center;
+        }
+
+        a {
+            font-size: 2.5em;
+            font-family: var(--heading);
+            font-weight: 600;
+            color: var(--white);
+            background-color: var(--red);
+            border: 0.15em solid var(--lighterRed);
+            margin-top: 1em;
+            padding: 0.25em 1.5em;
+            border-radius: 10em;
+            text-align: center;
+            transition: 0.1s background-color linear, 0.1s transform linear;
+
+            &:hover {
+                background-color: var(--lighterRed);
+                transform: scale(1.2);
             }
         }
     }
