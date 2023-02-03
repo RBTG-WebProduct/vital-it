@@ -4,6 +4,7 @@
   "description": "A public facing website for vital it",
   "main": "src/server.js",
   "scripts": {
+    "build": "tsc && sass styles:src/public/css && webpack ** node src/server.js",
     "start": "tsc utils/watch.ts --outDir src/utils && node src/utils/watch.js"
   },
   "repository": {
