@@ -8,8 +8,15 @@ import sendEmail from '../utils/smtp';
 
 import Contact from '../pages/Contact';
 
+/**
+ * Creating a route.
+ */
 const contact = express.Router();
 
+/**
+ * A utility class to generate an HTML email template.
+ * Look at "emailGenerator.ts" for more details.
+ */
 const EmailGenerator = new emailGenerator({
     brandHexCode: '#292929',
     brandSecondaryHexCode: '#EC2027', 
@@ -20,6 +27,10 @@ const EmailGenerator = new emailGenerator({
     websiteURL: 'https://thinkredbarn.com/',
 });
 
+/**
+ * A utility class to test a given data set against a delcared syntax and regex test.
+ * Look at "regexTester.ts" for more detials.
+ */
 const tester = new RegexTester({
     Name: /[a-zA-Z\s\']{1,200}/g,
     Email: /[\w!#$%&*+-=?^_]+@([\w!#$%&*+-=?^_]+\.)+[\w]{2,4}/g,
@@ -29,9 +40,16 @@ const tester = new RegexTester({
 });
 
 contact.route('/')
+    /**
+     * Sending the "Contact.tsx" react file when someone pings the GET method.
+     */
     .get(async (req, res) => {
-        res.send(serveHTML(<Contact></Contact>, 'contact'));
+        res.send(serveHTML(<Contact></Contact>, 'Contact'));
     })
+
+    /** 
+     * The POST method for our form.
+     */
     .post(async (req, res) => {
         /**
          * Testing to see if there's any missing data fields.

@@ -3,7 +3,7 @@ type TableData = {
 }
 
 /**
- * A Utility Class to geneterate a templated HTML file to send Emails.
+ * A Utility Class to generate a templated HTML file to send emails.
  * The constructor will create the template, while the functions use the template to fill in the necessary data and return it as a string.
  */
 class emailGenerator {
@@ -18,7 +18,7 @@ class emailGenerator {
      * @param brandSecondaryHexCode Used as the secondary color for the template.
      * @param headerImage Will be the image in the top left of the template (Ideally a logo with a low resolution).
      * @param companyName Used as the title of the header (will be linked to the provided website).
-     * @param headerSubtitle Used as the subtitle of the header (Ideally a slogan).
+     * @param headerSubtitle Used as the subtitle of the header (ideally a slogan).
      * @param message Used as disclaimer / message at the very bottom of the email.
      * @param websiteURL Used to link the headerImage and companyName
      */
@@ -57,7 +57,7 @@ class emailGenerator {
          * This is a function so we can call it recursively for nested data.
          * 
          * @param inputData The current data set that's been inserted into the table.
-         * @param nestedIndex The index of how many times this function has been called recursevly. Used to add "margin-left" to the inserted values.
+         * @param nestedIndex The index of how many times this function has been called recursevly. Used to add "padding-left" to the inserted values.
          */
         function createTableRows(inputData: TableData, nestedIndex: number): string {
             return Object.keys(inputData).map(key => {

@@ -29,7 +29,7 @@ async function sendEmail(args:{
     })).json();
 
     /**
-     * Returning whether is was successful based on the syntax of SMTP2GO's response syntax.
+     * Returning whether is was successful based on the syntax of SMTP2GO's responses.
      */
     return response.data.succeeded == 1;
 }

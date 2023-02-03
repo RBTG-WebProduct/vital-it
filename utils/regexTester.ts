@@ -8,7 +8,7 @@ interface RegexTestInputs {
 /**
  * A utility class to test a given syntax of data against some regular expressions.
  * This is mostly intended to regulate what is valid information on a form to avoid bot spam.
- * You can also nest the data syntax, as long as it does not contain arrays.
+ * You can also nest the data's syntax, as long as it does not contain arrays.
  */
 class RegexTester {
     requiredRegexTests: RegexTestInputs;

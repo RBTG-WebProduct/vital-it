@@ -3,6 +3,9 @@ import { hydrateRoot } from 'react-dom/client';
 import Header from './parts/Header';
 import Footer from './parts/Footer';
 
+/**
+ * Typing the data collected from the form
+ */
 type FormData = {
     Name: string,
     Email: string,
@@ -12,8 +15,14 @@ type FormData = {
 }
 
 const Contact:FunctionComponent = () => {
+    /**
+     * Loading the error message element as a React reference
+     */
     const errorMessage = useRef<HTMLParagraphElement>(null);
 
+    /**
+     * Setting state variables to change the form's data.
+     */
     const [formState, setFormState] = useState<FormData>({
         Name: '',
         Email: '',
@@ -22,10 +31,21 @@ const Contact:FunctionComponent = () => {
         Message: ''
     });
 
+    /**
+     * The function called when the submit button is clicked.
+     * 
+     * @returns 
+     */
     async function submit() {
         if(!errorMessage.current) return;
+        /**
+         * Reseting the error message.
+         */
         errorMessage.current!.innerHTML = '';
 
+        /**
+         * Making sure each field is filled in.
+         */
         Object.keys(formState).forEach(formInputName => {
             if(formState[formInputName as keyof FormData].length == 0) {
                 errorMessage.current!.innerHTML = `You must fill out the field "${formInputName}" before submitting.`;
@@ -33,8 +53,14 @@ const Contact:FunctionComponent = () => {
             }
         });
 
+        /**
+         * Inserting a spinning loading icon while it's making its POST call.
+         */
         errorMessage.current!.innerHTML = '<i class="fa-solid fa-arrows-rotate"></i>'
 
+        /**
+         * Sending the information to the server.
+         */
         const response: {
             success: boolean,
             message: string
@@ -47,6 +73,9 @@ const Contact:FunctionComponent = () => {
             "body": JSON.stringify(formState)
         })).json();
 
+        /**
+         * Displaying the server's response in the error message.
+         */
         if(response.success) {
             errorMessage.current!.innerHTML = `Success! Check your E-mail for a confirmation.`;
         } else {
