@@ -1,9 +1,12 @@
 import express from 'express';
 import React from 'react';
+
 import serveHTML from '../utils/serveHTML';
-import Contact from '../pages/Contact';
 import emailGenerator from '../utils/emailGenerator';
 import RegexTester from '../utils/regexTester';
+import sendEmail from '../utils/smtp';
+
+import Contact from '../pages/Contact';
 
 const contact = express.Router();
 
@@ -17,25 +20,35 @@ const EmailGenerator = new emailGenerator({
     websiteURL: 'https://thinkredbarn.com/',
 });
 
+const tester = new RegexTester({
+    Name: /[a-zA-Z\s\']{1,200}/g,
+    Email: /[\w!#$%&*+-=?^_]+@([\w!#$%&*+-=?^_]+\.)+[\w]{2,4}/g,
+    Company: /[\w\s().\-,]{1,400}/g,
+    Phone: /[0-9\-()]{10,20}/g,
+    Message: /[\w\s.?!,";:<>\/+=!@#$%&*()\-\']{1,4000}/g
+});
+
 contact.route('/')
     .get(async (req, res) => {
         res.send(serveHTML(<Contact></Contact>, 'contact'));
     })
     .post(async (req, res) => {
+        /**
+         * Testing to see if there's any missing data fields.
+         */
         if(!req.body || !req.body.Name || req.body.Name.length == 0 || !req.body.Email || req.body.Email.length == 0 || !req.body.Company || req.body.Company.length == 0 || !req.body.Phone || req.body.Phone.length == 0 || !req.body.Message || req.body.Message.length == 0) {
             res.send('You must fill out all fields to submit.');
             return;
         }
-
-        const tester = new RegexTester({
-            Name: /[a-zA-Z\s\']{1,10}/g,
-            Email: /[\w!#$%&*+-=?^_]+@([\w!#$%&*+-=?^_]+\.)+[\w]{2,4}/g,
-            Company: /[\w\s().\-,]{1,400}/g,
-            Phone: /[0-9\-()]{10,20}/g,
-            Message: /[\w\s.?!,";:<>\/+=!@#$%&*()\-\']{1,4000}/g
-        });
+        
+        /**
+         * Running the regex test on the data.
+         */
         const result = tester.runTest(req.body);
 
+        /**
+         * If there's any error message, return.
+         */
         if(typeof result == 'string') {
             res.send(JSON.stringify({
                 success: false,
@@ -44,13 +57,55 @@ contact.route('/')
             return;
         }
 
-        const customerEmail = EmailGenerator.generateCustomerEmail('Your contact request was recieved!', req.body);
-        const clientEmail = EmailGenerator.generateClientEmail('You\'ve recieved a contact request!', req.body);
+        /**
+         * Now that we know that it's valid data, we can type it.
+         */
+        const typedResult = result as {
+            Name: string,
+            Email: string,
+            Company: string,
+            Phone: string,
+            Message: string
+        };
 
+        /**
+         * Generating the email HTML to send.
+         * Since we know there's no nesting on this object, we can safely send it in a table format.
+         */
+        const customerEmail = EmailGenerator.generateCustomerEmail('Your contact request was recieved!', typedResult);
+        const clientEmail = EmailGenerator.generateClientEmail('You\'ve recieved a contact request!', typedResult);
+
+        // FOR TESTING
         res.send(JSON.stringify({
             success: true,
             message: ''
         }));
+        return;
+
+        /**
+         * Sending the email data to the SMTP Service
+         */
+        const response1 = await sendEmail({
+            to: "sales@thinkredbarn.com",
+            toName: "Sales",
+            fromName: "Red Barn Support Email",
+            subject: "A new thinkredbarn.com inquiry was just recieved!",
+            body: clientEmail
+        });
+        const response2 = await sendEmail({
+            to: typedResult.Email,
+            toName: typedResult.Name,
+            fromName: "Red Barn Support Email",
+            subject: "Your thinkredbarn.com inquiry has been recieved!",
+            body: customerEmail
+        });
+
+        /**
+         * If they both successfully sent, send a success message.
+         * Otherwise send an error message.
+         */
+        if(response1 && response2) res.send(JSON.stringify('Success! Check your e-mail for a confirmation.'));
+        else res.send(JSON.stringify('Error in sending e-mail, please contact websupport@thinkredbarn.com for help.'));
     })
 
 export default contact;
