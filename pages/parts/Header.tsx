@@ -35,7 +35,6 @@ const Header:FunctionComponent = () => {
                 <a href='/'>Home</a>
                 <a href='/services'>Services</a>
                 <a href='/contact'>Contact</a>
-                <a href='/login'>Log In <i className="fa-regular fa-user"></i></a>
             </nav>
             <div className='HamburgerButton' onClick={ e => {
                 setOpenMobileNav(!openMobileNav);

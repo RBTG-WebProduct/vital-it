@@ -29,7 +29,6 @@ const Footer:FunctionComponent = () => {
                 <a href='/'>Home</a>
                 <a href='/services'>Services</a>
                 <a href='/contact'>Contact</a>
-                <a href='/login'>Log In</a>
             </nav>
         </div>
         <div className='Divider'></div>

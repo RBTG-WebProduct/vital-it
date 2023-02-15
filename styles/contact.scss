@@ -39,6 +39,7 @@
             transition: color 0.1s linear, transform 0.1s linear;
 
             h2 {
+                color: inherit;
                 font-size: 2em;
                 font-weight: 500;
                 font-family: var(--body);
